@@ -36,7 +36,7 @@ async function run() {
 
         //Routes
 
-        //User related routes
+        //---------------User related routes-------------------
         //Post a user
         app.post("/addUser", async (req, res) => {
             const user = req.body;
@@ -44,6 +44,7 @@ async function run() {
             res.send(result);
         });
 
+        //-------------Product related api--------------------
         //Get all products
         app.get("/allProducts", async (req, res) => {
             const products = await productCollection.find({}).toArray();
@@ -63,6 +64,15 @@ async function run() {
         app.post("/addProduct", async (req, res) => {
             const product = req.body;
             const result = await productCollection.insertOne(product);
+            res.send(result);
+        });
+
+        //Delete a product by id
+        app.delete("/deleteProduct/:id", async (req, res) => {
+            const id = req.params.id;
+            const result = await productCollection.deleteOne({
+                _id: new ObjectId(id),
+            });
             res.send(result);
         });
 
