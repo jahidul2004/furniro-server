@@ -30,6 +30,9 @@ async function run() {
         const db = client.db("furniroDB");
         const productCollection = db.collection("products");
         const userCollection = db.collection("users");
+        const orderCollection = db.collection("orders");
+        const reviewCollection = db.collection("reviews");
+        const blogCollection = db.collection("blogs");
 
         //Routes
 
@@ -60,6 +63,14 @@ async function run() {
         app.post("/addProduct", async (req, res) => {
             const product = req.body;
             const result = await productCollection.insertOne(product);
+            res.send(result);
+        });
+
+        //-----------------Order related routed -------------------
+        //post an order
+        app.post("/addOrder", async (req, res) => {
+            const order = req.body;
+            const result = await orderCollection.insertOne(order);
             res.send(result);
         });
 
