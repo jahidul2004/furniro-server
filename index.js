@@ -29,8 +29,18 @@ async function run() {
         //Database and collections
         const db = client.db("furniroDB");
         const productCollection = db.collection("products");
+        const userCollection = db.collection("users");
 
         //Routes
+
+        //User related routes
+        //Post a user
+        app.post("/addUser", async (req, res) => {
+            const user = req.body;
+            const result = await userCollection.insertOne(user);
+            res.send(result);
+        });
+
         //Get all products
         app.get("/allProducts", async (req, res) => {
             const products = await productCollection.find({}).toArray();
