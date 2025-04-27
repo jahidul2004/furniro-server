@@ -37,6 +37,13 @@ async function run() {
             res.send(products);
         });
 
+        //Post a product
+        app.post("/addProduct", async (req, res) => {
+            const product = req.body;
+            const result = await productCollection.insertOne(product);
+            res.send(result);
+        });
+
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect();
         // Send a ping to confirm a successful connection
