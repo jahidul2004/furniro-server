@@ -106,6 +106,12 @@ async function run() {
             res.send(orders);
         });
 
+        //Get all orders
+        app.get("/allOrders", async (req, res) => {
+            const orders = await orderCollection.find({}).toArray();
+            res.send(orders);
+        });
+
         //----------------------Blog related routes-----------------
         //Post a blog
         app.post("/addBlog", async (req, res) => {
