@@ -126,6 +126,15 @@ async function run() {
             res.send(blogs);
         });
 
+        //Get blogs by id
+        app.get("/blog/:id", async (req, res) => {
+            const id = req.params.id;
+            const blog = await blogCollection.findOne({
+                _id: new ObjectId(id),
+            });
+            res.send(blog);
+        });
+
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect();
         // Send a ping to confirm a successful connection
