@@ -50,6 +50,13 @@ async function run() {
             res.send(users);
         });
 
+        //Get a single user by email
+        app.get("/user/:email", async (req, res) => {
+            const email = req.params.email;
+            const user = await userCollection.findOne({ email: email });
+            res.send(user);
+        });
+
         //-------------Product related api--------------------
         //Get all products
         app.get("/allProducts", async (req, res) => {
@@ -87,6 +94,23 @@ async function run() {
         app.post("/addOrder", async (req, res) => {
             const order = req.body;
             const result = await orderCollection.insertOne(order);
+            res.send(result);
+        });
+
+        //Get orders by primaryEmail
+        app.get("/orders/:email", async (req, res) => {
+            const email = req.params.email;
+            const orders = await orderCollection
+                .find({ primaryEmail: email })
+                .toArray();
+            res.send(orders);
+        });
+
+        //----------------------Blog related routes-----------------
+        //Post a blog
+        app.post("/addBlog", async (req, res) => {
+            const blog = req.body;
+            const result = await blogCollection.insertOne(blog);
             res.send(result);
         });
 
