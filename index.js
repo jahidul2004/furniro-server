@@ -120,6 +120,12 @@ async function run() {
             res.send(result);
         });
 
+        //Get all blogs
+        app.get("/allBlogs", async (req, res) => {
+            const blogs = await blogCollection.find({}).toArray();
+            res.send(blogs);
+        });
+
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect();
         // Send a ping to confirm a successful connection
