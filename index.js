@@ -162,6 +162,21 @@ async function run() {
             res.send(stats);
         });
 
+        //Get orders amount stats
+        app.get("/orderAmountStats", async (req, res) => {
+            const stats = await orderCollection
+                .aggregate([
+                    {
+                        $group: {
+                            _id: "$status",
+                            totalAmount: { $sum: "$totalPrice" },
+                        },
+                    },
+                ])
+                .toArray();
+            res.send(stats);
+        });
+
         //----------------------Blog related routes-----------------
         //Post a blog
         app.post("/addBlog", async (req, res) => {
