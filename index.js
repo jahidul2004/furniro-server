@@ -112,6 +112,14 @@ async function run() {
             res.send(orders);
         });
 
+        //Get pending orders
+        app.get("/pendingOrders", async (req, res) => {
+            const orders = await orderCollection
+                .find({ status: "pending" })
+                .toArray();
+            res.send(orders);
+        });
+
         //----------------------Blog related routes-----------------
         //Post a blog
         app.post("/addBlog", async (req, res) => {
