@@ -135,6 +135,15 @@ async function run() {
             res.send(blog);
         });
 
+        //Delete a blog by id
+        app.delete("/deleteBlog/:id", async (req, res) => {
+            const id = req.params.id;
+            const result = await blogCollection.deleteOne({
+                _id: new ObjectId(id),
+            });
+            res.send(result);
+        });
+
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect();
         // Send a ping to confirm a successful connection
