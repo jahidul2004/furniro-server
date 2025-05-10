@@ -120,6 +120,14 @@ async function run() {
             res.send(orders);
         });
 
+        //Get all completed orders
+        app.get("/completedOrders", async (req, res) => {
+            const orders = await orderCollection
+                .find({ status: "completed" })
+                .toArray();
+            res.send(orders);
+        });
+
         //----------------------Blog related routes-----------------
         //Post a blog
         app.post("/addBlog", async (req, res) => {
