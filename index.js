@@ -179,6 +179,21 @@ async function run() {
             res.send(result);
         });
 
+        //Get blogs category count
+        app.get("/blogCategoryCount", async (req, res) => {
+            const blogs = await blogCollection
+                .aggregate([
+                    {
+                        $group: {
+                            _id: "$category",
+                            count: { $sum: 1 },
+                        },
+                    },
+                ])
+                .toArray();
+            res.send(blogs);
+        });
+
         //------------------Review related routes-----------------
         //post a review
         app.post("/addReview", async (req, res) => {
