@@ -187,6 +187,15 @@ async function run() {
             res.send(result);
         });
 
+        //Get reviews by product id
+        app.get("/reviews/:productId", async (req, res) => {
+            const productId = req.params.productId;
+            const reviews = await reviewCollection
+                .find({ productId: productId })
+                .toArray();
+            res.send(reviews);
+        });
+
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect();
         // Send a ping to confirm a successful connection
