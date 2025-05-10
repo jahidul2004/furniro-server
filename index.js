@@ -128,6 +128,14 @@ async function run() {
             res.send(orders);
         });
 
+        //Get all cancelled orders
+        app.get("/cancelledOrders", async (req, res) => {
+            const orders = await orderCollection
+                .find({ status: "cancelled" })
+                .toArray();
+            res.send(orders);
+        });
+
         //Update order status
         app.put("/updateOrder/:id", async (req, res) => {
             const id = req.params.id;
