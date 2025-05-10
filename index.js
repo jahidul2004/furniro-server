@@ -211,6 +211,22 @@ async function run() {
             res.send(reviews);
         });
 
+        //Get document count
+        app.get("/documentCount", async (req, res) => {
+            const productCount = await productCollection.countDocuments();
+            const orderCount = await orderCollection.countDocuments();
+            const userCount = await userCollection.countDocuments();
+            const reviewCount = await reviewCollection.countDocuments();
+            const blogCount = await blogCollection.countDocuments();
+            res.send({
+                productCount,
+                orderCount,
+                userCount,
+                reviewCount,
+                blogCount,
+            });
+        });
+
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect();
         // Send a ping to confirm a successful connection
