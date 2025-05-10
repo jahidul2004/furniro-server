@@ -128,6 +128,17 @@ async function run() {
             res.send(orders);
         });
 
+        //Update order status
+        app.put("/updateOrder/:id", async (req, res) => {
+            const id = req.params.id;
+            const status = req.body.status;
+            const result = await orderCollection.updateOne(
+                { _id: new ObjectId(id) },
+                { $set: { status: status } }
+            );
+            res.send(result);
+        });
+
         //----------------------Blog related routes-----------------
         //Post a blog
         app.post("/addBlog", async (req, res) => {
